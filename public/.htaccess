@@ -1,0 +1,15 @@
+<Directory /var/www/html/cdn.aedev.pro>
+  Require all denied
+</Directory>
+
+<Directory /var/www/html/cdn.aedev.pro/public>
+  Require all granted
+</Directory>
+
+RewriteEngine On
+
+# tenant/protected
+RewriteRule ^([^/]+)/protected$ /validate.php?tenant=$1 [QSA,L]
+
+# tenant/public
+RewriteRule ^([^/]+)/public$ /public.php?tenant=$1 [QSA,L]
