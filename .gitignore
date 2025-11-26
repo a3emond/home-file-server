@@ -18,3 +18,4 @@ config/tenants/*.local.php
 /tmp/
 .cache/
 
+files
