@@ -21,7 +21,7 @@ if (!$result) {
 	exit;
 }
 
-$file = "/mnt/ssd/cdn/$tenant/private/$path";
+$file = "/mnt/ssd/cdn/$tenant/protected/$path";
 if (!is_file($file)) {
 	http_response_code(404);
 	exit;
