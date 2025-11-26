@@ -1,15 +1,36 @@
+# ==========================================
+# Global protection (deny by default)
+# ==========================================
 <Directory /var/www/html/cdn.aedev.pro>
-  Require all denied
+    Require all denied
 </Directory>
 
 <Directory /var/www/html/cdn.aedev.pro/public>
-  Require all granted
+    Require all granted
 </Directory>
 
+Options -Indexes -MultiViews
 RewriteEngine On
+RewriteBase /
 
-# tenant/protected
-RewriteRule ^([^/]+)/protected$ /validate.php?tenant=$1 [QSA,L]
+# ==========================================
+# PUBLIC FILES
+# /{tenant}/public/{path}
+# ==========================================
+RewriteRule ^([^/]+)/public/?$            public.php?tenant=$1 [QSA,NC,L]
+RewriteRule ^([^/]+)/public/(.+)$         public.php?tenant=$1&path=$2 [QSA,NC,L]
 
-# tenant/public
-RewriteRule ^([^/]+)/public$ /public.php?tenant=$1 [QSA,L]
+# ==========================================
+# PROTECTED FILES
+# /{tenant}/protected/{path}
+# ==========================================
+RewriteRule ^([^/]+)/protected/?$         validate.php?tenant=$1 [QSA,NC,L]
+RewriteRule ^([^/]+)/protected/(.+)$      validate.php?tenant=$1&path=$2 [QSA,NC,L]
+
+# ==========================================
+# UPLOADS
+# /{tenant}/upload/{path}
+# ==========================================
+RewriteRule ^([^/]+)/upload/?$            upload.php?tenant=$1 [QSA,NC,L]
+RewriteRule ^([^/]+)/upload/(.+)$         upload.php?tenant=$1&path=$2 [QSA,NC,L]
+

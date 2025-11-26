@@ -1,0 +1,20 @@
+# storage (must never be versioned)
+files/
+protected/
+public/*
+
+# real data path (symlink target)
+ /mnt/
+ /srv/
+
+# secrets / credentials
+.env
+config/tenants/*.local.php
+
+# logs
+*.log
+
+# tmp / cache
+/tmp/
+.cache/
+
